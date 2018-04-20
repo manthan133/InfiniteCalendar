@@ -4,18 +4,18 @@
  * and open the template in the editor.
  */
 
-package MyCalender;
+package MyCalendar;
 import main.*;
 /**
  *
  * @author Manthan's
  */
-public class CalenderView extends javax.swing.JFrame {
+public class CalendarView extends javax.swing.JFrame {
 
     /**
      * Creates new form CalenderView
      */
-    public CalenderView() {
+    public CalendarView() {
         initComponents();
         
         dates.setRowHeight(48);
@@ -304,8 +304,8 @@ public class CalenderView extends javax.swing.JFrame {
         cmonth.setText((String)month.getSelectedItem());
         cyear.setText(year.getText());
         
-        int start = Calender.getFactor(monthNum,yearNum);
-        int days = Calender.numDays(monthNum,yearNum);
+        int start = Calendar.getFactor(monthNum,yearNum);
+        int days = Calendar.numDays(monthNum,yearNum);
         
         for(int i=0;i<6;i++)
             for(int j=0;j<7;j++)
@@ -346,20 +346,21 @@ public class CalenderView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CalenderView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CalendarView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CalenderView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CalendarView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CalenderView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CalendarView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CalenderView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CalendarView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CalenderView().setVisible(true);
+                new CalendarView().setVisible(true);
             }
         });
     }
