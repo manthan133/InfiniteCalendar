@@ -15,11 +15,14 @@ public class CalendarView extends javax.swing.JFrame {
     /**
      * Creates new form CalenderView
      */
+    
+    final int MAX_ROWS = 6;
+    final int MAX_COLUMNS = Calendar.WEEK_DAYS;
+    
     public CalendarView() {
         initComponents();
         
-        dates.setRowHeight(48);
-        
+        dates.setRowHeight(48);   
     }
 
     /**
@@ -280,48 +283,68 @@ public class CalendarView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void invalidYearWarning()
+    {
+        warning.setText("Invalid Year, This calendar starts from 1753!");
+            
+        try
+        {   
+            Thread.sleep(1000);
+        }
+        catch(InterruptedException e)
+        {
+            System.out.println(e);
+        }
 
+        warning.setText("");
+    }
+    
     private void goActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goActionPerformed
         
         int monthNum = month.getSelectedIndex()+1;
-        int yearNum = Integer.parseInt(year.getText());
         
-        if(yearNum < 1753)
+        int yearNum;
+        
+        try
         {
-            warning.setText("Julian calender didn't start in year:"+yearNum);
-            try
-            {   
-                Thread.sleep(1000);
-            }
-            catch(InterruptedException e)
-            {
-                System.out.println(e);
-            }
-            warning.setText("");
+            yearNum = Integer.parseInt(year.getText());
+        }
+        catch(NumberFormatException e)
+        {
+            invalidYearWarning();
+            return;
+        }
+        
+        if(yearNum < Calendar.REFERENCE_YEAR)
+        {
+            invalidYearWarning();
             return;
         }
         
         cmonth.setText((String)month.getSelectedItem());
         cyear.setText(year.getText());
         
-        int start = Calendar.getFactor(monthNum,yearNum);
-        int days = Calendar.numDays(monthNum,yearNum);
+        int start = Calendar.getStartDay(monthNum, yearNum);
+        int days = Calendar.numDays(monthNum, yearNum);
         
-        for(int i=0;i<6;i++)
-            for(int j=0;j<7;j++)
-                dates.setValueAt(null,i,j);
-        //System.out.println(monthNum);
-        //System.out.println(start);
-        //System.out.println(days);
-        
-       
-        for(int i=start,j=1;j<=days;i++,j++)
+        for(int i=0;i<MAX_ROWS;i++)
         {
-            dates.setValueAt(j,(i%7 == 0)?(i/7)-1:(i/7),(i%7) == 0?6:(i%7)-1);
-            //int k=(i%7 == 0)?(i/7)-1:(i/7);
-            //int l = (i%7) == 0?6:(i%7)-1;
-            //System.out.println(j+","+k+","+l);
+            for(int j=0;j<MAX_COLUMNS;j++)
+            {
+                dates.setValueAt(null,i,j);
+            }
         }
+        
+        for(int day=1,index=start;day<=days;day++,index++)
+        {
+            dates.setValueAt(day, index/(Calendar.WEEK_DAYS), index%(Calendar.WEEK_DAYS));
+        }
+        
+        /*for(int i=start,j=1;j<=days;i++,j++)
+        {
+            dates.setValueAt(j, (i%MAX_COLUMNS==0)?(i/MAX_COLUMNS)-1:(i/7), (i%7) == 0?6:(i%7)-1);
+        }*/
         // TODO add your handling code here:
     }//GEN-LAST:event_goActionPerformed
 
