@@ -13,11 +13,7 @@ public class Calendar
         
         startDay += (year-REFERENCE_YEAR);
         
-        // for(int i=1753;i<year;i++)
-        //     if(checkLeap(i))
-        //         startDay+=1;
-        
-        startDay = (startDay + ( ((range/4)%WEEK_DAYS) + ((range/400)%WEEK_DAYS) - ((range/100)%WEEK_DAYS)) )%WEEK_DAYS;
+        startDay = (startDay + ( (range/4)+(range/400)-(range/100) )%WEEK_DAYS;
         
         for(int i=1;i<month;i++)
         {  
@@ -33,10 +29,7 @@ public class Calendar
         {
             return true;
         }
-        // if((year%4==0 && year%100!=0) || (year%4==0 && year%100==0 && year%400==0))
-        // {
-        //     return true;
-        // } 
+
         return false;
     }
     
